@@ -4,14 +4,14 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class layout extends Component
+class navlink extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(public string $title)
+    public function __construct(public string $href)
     {
         //
     }
@@ -23,6 +23,6 @@ class layout extends Component
      */
     public function render()
     {
-        return view('layouts.layout');
+        return view('components.navlink');
     }
 }
