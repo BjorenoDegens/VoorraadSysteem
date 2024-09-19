@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Models\Product;
+use App\Models\Category;
 
-class ProductController extends Controller
+use function Ramsey\Uuid\v1;
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('livewire.product.index');
+        return view('category.index', [
+            'categories' => Category::simplePaginate(10),
+        ]);
     }
 
     /**
@@ -25,11 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
-        return view('product.create', [
-            'categories' => $categories
-        ]);
+        return view('category.create');
     }
 
     /**
@@ -40,9 +39,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        Category::create($request->all());
 
-        return redirect()->route('product.index')->with('success', 'Product is toegevoegd!');
+        return redirect()->route('category.index')->with('success', 'Category is toegevoegd!');
     }
 
     /**
@@ -53,10 +52,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $category = Category::findOrFail($id);
 
-        return view('product.show', [
-            'product' => $product
+        return view('category.show', [
+            'category' => $category
         ]);
     }
 
@@ -68,12 +67,10 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::findOrFail($id);
-        $categories = Category::all();
+        $category = Category::findOrFail($id);
 
-        return view('product.edit', [
-            'product' => $product,
-            'categories' => $categories
+        return view('category.edit', [
+            'category' => $category
         ]);
     }
 
@@ -86,9 +83,10 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Product::findOrFail($id)->update($request->all());
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
 
-        return redirect()->route('product.index')->with('success', 'Product is aangepast!');
+        return redirect()->route('category.index')->with('success', 'Category is aangepast!');
     }
 
     /**
@@ -99,18 +97,9 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        $category = Category::findOrFail($id);
+        $category->delete();
 
-        return redirect()->route('product.index')->with('success', 'Product is verwijderd!');
+        return redirect()->route('category.index')->with('success', 'Category is verwijderd!');
     }
-
-    // public function filter(Request $request)
-    // {
-    //     $filteredProducts = Product::where('category_name', $request->id
-
-    //     return view('product.index', [
-    //         'products' => $products
-    //     ]);
-    // }
 }
