@@ -15,15 +15,30 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper" class="bg-light border-right">
             <div class="list-group list-group-flush">
-                <a href="/" class="list-group-item list-group-item-action bg-light">
+                <x-navlink href="/">
                     Home
-                </a>
-                <a href="{{ route('product.index') }}" class="list-group-item list-group-item-action bg-light">
+                </x-navlink>
+                @if (Auth::check())
+                    <x-navlink href="{{ route('dashboard') }}">
+                        Dashboard
+                    </x-navlink>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="list-group-item list-group-item-action bg-light">
+                            Uitloggen
+                        </button>
+                    </form>
+                @else
+                    <x-navlink href="{{ route('login') }}">
+                        Inloggen
+                    </x-navlink>
+                @endif
+                <x-navlink href="{{ route('product.index') }}">
                     Product
-                </a>
-                <a href="{{ route('category.index') }}" class="list-group-item list-group-item-action bg-light">
+                </x-navlink>
+                <x-navlink href="{{ route('category.index') }}">
                     Categorieën
-                </a>
+                </x-navlink>
             </div>
         </div>
 

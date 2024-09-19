@@ -1,4 +1,4 @@
-<x-layout title="Home">
+<x-layout title="Dashboard">
     <h1>Welkom op het Voorraad Systeem</h1>
     <p>Deze website is speciaal ontwikkeld voor het bijhouden van de voorraad van het ROC Nijmegen.</p>
     <p>Je kunt hier producten toevoegen, verwijderen en aanpassen om je voorraad up-to-date te houden.</p>
@@ -11,11 +11,16 @@
         <li>Gedetailleerde productinformatie inzien</li>
     </ul>
 
-    <h2>Veelgebruikte Acties:</h2>
-    <div>
+    @if (Auth::check())
+        {{-- @if (Auth()->role_id == 1) --}}
+        <h2>Veelgebruikte Acties:</h2>
         <a href="{{ route('product.create') }}"><button>Product toevoegen</button></a>
         <a href="{{ route('category.index') }}"><button>Categorieën beheren</button></a>
         <a href="{{ route('product.index') }}"><button>Producten beheren</button></a>
+        {{-- @endif --}}
+    @endif
+    <div>
+
     </div>
 
     <h2>Laatste Updates:</h2>
