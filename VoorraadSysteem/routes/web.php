@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ArchiveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ Route::get('/', function () {
 
 Route::resource('product', ProductController::class);
 Route::resource('category', CategoryController::class);
+Route::resource('archive', ArchiveController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
