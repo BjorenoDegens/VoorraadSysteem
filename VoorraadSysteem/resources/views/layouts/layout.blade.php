@@ -39,6 +39,9 @@
                 <x-navlink href="{{ route('category.index') }}">
                     Categorieën
                 </x-navlink>
+                <x-navlink href="{{ route('archive.index') }}">
+                    Archief
+                </x-navlink>
             </div>
         </div>
 
