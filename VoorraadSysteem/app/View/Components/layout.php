@@ -23,6 +23,6 @@ class layout extends Component
      */
     public function render()
     {
-        return view('layout.layout');
+        return view('layouts.layout');
     }
 }
