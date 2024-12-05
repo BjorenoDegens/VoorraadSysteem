@@ -39,6 +39,9 @@
                 <x-navlink href="{{ route('category.index') }}">
                     Categorieën
                 </x-navlink>
+                <x-navlink href="{{ route('cart.index') }}">
+                    Uitleenwagen
+                </x-navlink>
             </div>
         </div>
 
