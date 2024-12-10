@@ -111,6 +111,7 @@ class ProductController extends Controller
             'item_name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|max:2048',
+            'product' => 'integer',
         ]);
 
         // Product bijwerken

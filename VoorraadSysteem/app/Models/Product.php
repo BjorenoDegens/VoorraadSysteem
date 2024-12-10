@@ -16,10 +16,12 @@ class Product extends Model
         'status_id',
         'sku',
         'image',
+        'stock',
     ];
 
     protected $attributes = [
         'status_id' => 2, // Standaard status_id
+        'stock' => 0,
     ];
 
     /**
