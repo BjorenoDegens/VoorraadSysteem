@@ -38,9 +38,6 @@ class ProductTable extends DataTableComponent
             Column::make("Categorie", "category.name")
                 ->searchable()
                 ->sortable(),
-            Column::make("Aantal", "stock")
-                ->searchable()
-                ->sortable(),
             Column::make('Bekijken')
                 ->label(function ($row) {
                     return '
