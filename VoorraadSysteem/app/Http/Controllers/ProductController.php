@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -15,7 +15,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('livewire.product.index');
+        $products = Product::with('category', 'status')->get();
+
+        return view('livewire.product.index', [
+            'products' => $products,
+        ]);
     }
 
     /**
@@ -28,7 +32,7 @@ class ProductController extends Controller
         $categories = Category::all();
 
         return view('product.create', [
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
@@ -40,7 +44,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        Product::create($request->all());
+        // Validatie van invoer
+        $request->validate([
+            'item_name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        // Nieuwe product aanmaken
+        $product = new Product($request->all());
+
+        // Automatisch een unieke SKU genereren
+        $product->sku = Product::generateUniqueSku();
+
+        // Standaard status_id instellen als deze niet wordt opgegeven
+        $product->status_id = $product->status_id ?? 2;
+
+        $product->save();
 
         return redirect()->route('product.index')->with('success', 'Product is toegevoegd!');
     }
@@ -53,10 +73,10 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::with('category', 'status')->findOrFail($id);
 
         return view('product.show', [
-            'product' => $product
+            'product' => $product,
         ]);
     }
 
@@ -73,7 +93,7 @@ class ProductController extends Controller
 
         return view('product.edit', [
             'product' => $product,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
@@ -86,7 +106,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Product::findOrFail($id)->update($request->all());
+        // Validatie van invoer
+        $request->validate([
+            'item_name' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|max:2048',
+        ]);
+
+        // Product bijwerken
+        $product = Product::findOrFail($id);
+        $product->fill($request->all());
+
+        // SKU blijft ongewijzigd; status_id kan worden overschreven
+        $product->save();
 
         return redirect()->route('product.index')->with('success', 'Product is aangepast!');
     }
@@ -104,13 +136,4 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with('success', 'Product is verwijderd!');
     }
-
-    // public function filter(Request $request)
-    // {
-    //     $filteredProducts = Product::where('category_name', $request->id
-
-    //     return view('product.index', [
-    //         'products' => $products
-    //     ]);
-    // }
 }
