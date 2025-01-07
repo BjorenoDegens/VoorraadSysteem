@@ -16,6 +16,19 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
+        // mini seeder voor status
+        DB::table('statuses')->insert([
+            [
+                'name' => 'Op'
+            ],
+            [
+                'name' => 'In voorraad'
+            ],
+            [
+                'name' => 'Niet beschikbaar'
+            ]
+        ]);
+
         Product::factory(100)->create();
     }
 }

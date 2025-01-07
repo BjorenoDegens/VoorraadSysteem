@@ -18,13 +18,13 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             // TODO: Rollen aanpassen naar rollen die we nodig hebben
             [
-                'name' => 'admin',
+                'naam' => 'admin',
             ],
             [
-                'name' => 'manager',
+                'naam' => 'manager',
             ],
             [
-                'name' => 'employee',
+                'naam' => 'employee',
             ]
         ]);
     }
