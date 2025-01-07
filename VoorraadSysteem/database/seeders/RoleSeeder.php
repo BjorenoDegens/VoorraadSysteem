@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         DB::table('roles')->insert([
+            // TODO: Rollen aanpassen naar rollen die we nodig hebben
             [
                 'name' => 'admin',
             ],
