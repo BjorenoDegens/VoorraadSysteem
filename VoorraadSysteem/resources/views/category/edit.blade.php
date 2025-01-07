@@ -1,4 +1,4 @@
-<x-layout title="Categorie {{ $category->name }} }} aanpassen">
+<x-layout title="Categorie {{ $category->name }} aanpassen">
     <h1>Categorie {{ $category->name }} aanpassen</h1>
     <form action="{{ route('category.update', $category->id) }}" method="post">
         @csrf
@@ -9,4 +9,9 @@
         </div>
         <button type="submit" class="btn btn-primary">Opslaan</button>
     </form>
+    <div class="mt-2">
+        <a href="{{ route('category.index') }}">
+            <button class="btn btn-warning">Terug</button>
+        </a>
+    </div>
 </x-layout>
