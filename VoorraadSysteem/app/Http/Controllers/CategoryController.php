@@ -21,8 +21,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('category.index', [
-            'categories' => Category::simplePaginate(10),
+        $categories = Category::all();
+
+        return view('livewire.category.index', [
+            'categories' => $categories
         ]);
     }
 
