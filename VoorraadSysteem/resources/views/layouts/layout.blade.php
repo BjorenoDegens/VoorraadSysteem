@@ -19,9 +19,11 @@
                     Home
                 </x-navlink>
                 @if (Auth::check())
-                    <x-navlink href="{{ route('dashboard') }}">
-                        Dashboard
-                    </x-navlink>
+                    @if (Auth::user()->role_id === 1)
+                        <x-navlink href="{{ route('admin.dashboard') }}">
+                            Admin dashboard
+                        </x-navlink>
+                    @endif
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button class="list-group-item list-group-item-action bg-light">
@@ -38,6 +40,9 @@
                 </x-navlink>
                 <x-navlink href="{{ route('category.index') }}">
                     Categorieën
+                </x-navlink>
+                <x-navlink href="{{ route('archive.index') }}">
+                    Archief
                 </x-navlink>
             </div>
         </div>
