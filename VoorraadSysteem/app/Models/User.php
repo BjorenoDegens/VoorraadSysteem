@@ -21,6 +21,7 @@ class User extends Authenticatable
         'naam',
         'email',
         'password',
+        'role_id', // Voeg role_id toe
     ];
 
     /**
@@ -43,19 +44,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * Boot the model.
+     * Relationship with Role.
      */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($user) {
-            if (is_null($user->role_id)) {
-                $user->role_id = 1; // Set default role_id to 1
-            }
-        });
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class);
